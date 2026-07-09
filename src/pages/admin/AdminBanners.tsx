@@ -142,8 +142,14 @@ export default function AdminBanners() {
                   )}
                   
                   {!formData.imageUrl && (
+                    <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300 p-3 rounded text-xs mb-2">
+                      <strong>Important:</strong> To ensure your banners (especially videos) are visible across <b>all devices</b>, you must paste a public URL below. Direct uploads are saved only to your current device and will not sync to other phones or computers.
+                    </div>
+                  )}
+
+                  {!formData.imageUrl && (
                     <label 
-                      className={`w-full h-32 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded transition-colors bg-gray-50 dark:bg-black/50 text-gray-500 ${isUploading ? 'cursor-not-allowed' : 'cursor-pointer hover:border-gold-500 hover:text-gold-500'}`}
+                      className={`w-full h-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-700 rounded transition-colors bg-gray-50 dark:bg-black/50 text-gray-500 ${isUploading ? 'cursor-not-allowed' : 'cursor-pointer hover:border-gold-500 hover:text-gold-500'}`}
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={(e) => {
                         e.preventDefault();
@@ -164,12 +170,12 @@ export default function AdminBanners() {
                       {isUploading ? (
                         <>
                           <Loader2 size={24} className="mb-2 animate-spin text-gold-500" />
-                          <span className="text-xs font-medium uppercase">Processing File...</span>
+                          <span className="text-xs font-medium uppercase">Processing...</span>
                         </>
                       ) : (
                         <>
                           <Plus size={24} className="mb-2" />
-                          <span className="text-xs font-medium uppercase">Upload Image or Video</span>
+                          <span className="text-xs font-medium uppercase text-center px-4">Local Upload<br/><span className="text-[10px] opacity-70">(Not visible on other devices)</span></span>
                         </>
                       )}
                       <input 
@@ -197,8 +203,8 @@ export default function AdminBanners() {
                   
                   {!formData.imageUrl && (
                     <div>
-                      <label className="block text-[10px] font-medium uppercase text-gray-500 mb-1">Or enter image/video URL</label>
-                      <input type="text" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} className="w-full border px-3 py-2 bg-transparent dark:border-gray-700 text-sm" placeholder="https://..." />
+                      <label className="block text-[10px] font-bold uppercase text-gold-600 dark:text-gold-400 mb-1">Public Image/Video URL (Recommended)</label>
+                      <input type="text" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} className="w-full border px-3 py-2 bg-transparent dark:border-gray-700 text-sm focus:border-gold-500 focus:ring-1 focus:ring-gold-500 outline-none transition-all" placeholder="https://youtube.com/... or https://imgur.com/..." />
                     </div>
                   )}
                 </div>

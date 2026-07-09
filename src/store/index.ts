@@ -129,9 +129,11 @@ export const useAppStore = create<AppState>()(
         categories: state.categories.filter(c => c.id !== id)
       })),
       
-      addBanner: (banner) => set((state) => ({
-        banners: [...state.banners, { ...banner, id: generateId() }]
-      })),
+      addBanner: async (banner) => {
+        const newBanner = { ...banner, id: generateId() };
+        try { await import("../lib/supabase").then(m => m.supabase.from("banners").insert([{ id: newBanner.id, image_url: newBanner.imageUrl, title: newBanner.title, subtitle: newBanner.subtitle, link: newBanner.link, "order": newBanner.order }])); } catch(e) { console.error(e); }
+        set((state) => ({ banners: [...state.banners, newBanner] }));
+      },
       deleteBanner: (id) => set((state) => ({
         banners: state.banners.filter(b => b.id !== id)
       })),
