@@ -1,0 +1,31 @@
+    description: '',
+    price: 0,
+    discountPrice: 0,
+    categoryId: categories[0]?.id || '',
+    images: [''],
+    sizes: 'S,M,L,XL',
+    colors: 'Black,White',
+    inventory: 10,
+    featured: false
+  };
+  
+  const [formData, setFormData] = useState<any>(initialFormState);
+
+  const handleOpenModal = (product?: Product) => {
+    if (product) {
+      setEditingId(product.id);
+      setFormData({
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        discountPrice: product.discountPrice || 0,
+        categoryId: product.categoryId,
+        images: product.images,
+        sizes: product.sizes.join(','),
+        colors: product.colors.join(','),
+        inventory: product.inventory,
+        featured: product.featured || false
+      });
+    } else {
+      setEditingId(null);
+      setFormData(initialFormState);
